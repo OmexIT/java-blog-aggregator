@@ -15,9 +15,8 @@ public class Role {
     @GeneratedValue
     private Integer id;
     private String name;
-    @ManyToMany
-    private
-    List<User> users;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
     public Integer getId() {
         return id;

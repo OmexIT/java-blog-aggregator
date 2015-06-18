@@ -1,24 +1,39 @@
 package cz.jiripinkas.jba.entity;
 
+import cz.jiripinkas.jba.annotation.UniqueUsername;
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
  * Created by omexic on 6/14/2015.
  */
 @Entity
+@Table(name = "app_user")
 public class User {
     @Id
     @GeneratedValue
     private Integer id;
+
+    @Size(min = 3, message = "Name must be atleast 3 characters")
+    @Column(unique = true)
+    @UniqueUsername(message = "Such username already exists!")
     private String name;
+
+    @Size(min = 1, message = "Invalid email address")
+    @Email(message = "Invalid email address")
     private String email;
+
+    @Size(min = 5, message = "Password must be atleast 5 characters")
     private String password;
+    private boolean enabled;
     @ManyToMany
     @JoinTable
     private List<Role> roles;
-    @OneToMany(mappedBy = "user")
-    private    List<Blog> blogs;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Blog> blogs;
 
     public Integer getId() {
         return id;
@@ -66,5 +81,13 @@ public class User {
 
     public void setBlogs(List<Blog> blogs) {
         this.blogs = blogs;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
