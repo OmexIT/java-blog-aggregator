@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="../layout/taglib.jsp" %>
 
-<h1>Latest news from the Java World:</h1>
+<h1>Latest news from the Java World: </h1>
 
 
 <table class="table table-bordered table-hover table-striped">
